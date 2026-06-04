@@ -10,7 +10,11 @@ dependency is a YAML parser for the config.
 Homebrew (macOS — installs the binary as an unsigned cask):
 
 ```bash
-brew install --cask DevHatRo/tap/pgbackup
+brew install --cask DevHatRo/tap/pgbackup   # one-liner, auto-taps
+
+# or tap first, then install by short name:
+brew tap DevHatRo/homebrew-tap
+brew install --cask pgbackup
 ```
 
 On Linux (and everywhere else), grab a binary from the
