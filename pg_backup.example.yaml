@@ -1,0 +1,36 @@
+# Connection. Password comes from PGPASSWORD or ~/.pgpass, never from here.
+host: localhost
+port: 12854
+username: postgres
+database: postgres
+
+# Optional: abort unless the process runs as this OS user. "" = no check.
+backup_user: ""
+
+# Root directory; dated tier dirs like 2026-06-04-daily are created under it.
+backup_dir: /var/lib/backup/db
+
+# Where dated log files (pgbackup-YYYY-MM-DD.log) are written.
+# "" or "-" logs to stderr only. Overridable with the -log-dir flag.
+log_dir: /var/log/pgbackup
+
+# Databases matching any of these regexes get a schema-only dump and are
+# excluded from full dumps. e.g. "system_log" matches "dev_system_log_2010".
+schema_only_list: []
+
+enable_globals_backups: true
+enable_plain_backups: true
+enable_custom_backups: false
+
+# Add pg_dump --create so each full dump recreates its database (owner,
+# encoding, locale, DB-level grants) on restore — no manual createdb needed.
+include_create_database: true
+
+# Rotation.
+day_of_week_to_keep: 7   # 1-7 = Mon-Sun; which weekday becomes the weekly
+days_to_keep: 7          # daily backups younger than this are kept
+weeks_to_keep: 4         # weekly backups younger than this are kept
+months_to_keep: 0        # 0 = keep monthly backups forever
+
+# Optional overall deadline, e.g. "2h". "" or "0" = no limit.
+timeout: ""
