@@ -30,6 +30,27 @@ builds:
       - -s -w -X main.Version={{.Version}} -X main.BuildTime={{.Date}}
     binary: pgbackup
 
+homebrew_casks:
+  - name: pgbackup
+    repository:
+      owner: DevHatRo
+      name: homebrew-tap
+      token: "{{ .Env.HOMEBREW_TAP_TOKEN }}"
+    directory: Casks
+    homepage: "https://github.com/DevHatRo/pgbackup"
+    description: "Single-binary PostgreSQL rotating-backup tool"
+    # Don't auto-bump the cask on pre-releases/snapshots.
+    skip_upload: auto
+    binaries:
+      - pgbackup
+    # Strip the quarantine xattr so the unsigned binary runs without Gatekeeper prompts.
+    hooks:
+      post:
+        install: |
+          if OS.mac?
+            system_command "/usr/bin/xattr", args: ["-dr", "com.apple.quarantine", "#{staged_path}/pgbackup"]
+          end
+
 archives:
   - formats:
       - tar.gz

@@ -5,6 +5,18 @@ A single static binary replacing the classic `pg_backup_rotated.sh` /
 `pg_dumpall` / `psql` clients and does gzip in-process. The only library
 dependency is a YAML parser for the config.
 
+## Install
+
+Homebrew (macOS — installs the binary as an unsigned cask):
+
+```bash
+brew install --cask DevHatRo/tap/pgbackup
+```
+
+On Linux (and everywhere else), grab a binary from the
+[releases](https://github.com/DevHatRo/pgbackup/releases) or build from source
+(below).
+
 ## Build
 
 ```bash
