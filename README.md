@@ -131,3 +131,7 @@ done
 
 `globals.sql.gz` contains password **hashes** — protect it; gzip is not
 encryption.
+
+## License
+
+MIT — see [LICENSE](LICENSE).
