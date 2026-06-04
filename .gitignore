@@ -1,0 +1,45 @@
+# --- Build output ---
+/bin/
+/dist/
+pgbackup
+pgbackup-*-*
+
+# --- Go ---
+*.exe
+*.exe~
+*.dll
+*.so
+*.dylib
+*.test
+*.out
+*.prof
+coverage.txt
+go.work
+go.work.sum
+vendor/
+
+# --- Logs / runtime ---
+*.log
+/logs/
+
+# --- Local config & secrets (keep only the example) ---
+pg_backup.yaml
+pg_backup.*.yaml
+!pg_backup.example.yaml
+.pgpass
+.env
+.env.*
+
+# --- Editor / OS ---
+.DS_Store
+.idea/
+.vscode/
+*.swp
+*~
+
+# --- Claude Code: do not commit anything Claude-related ---
+CLAUDE.md
+CLAUDE.local.md
+.claude/
+.claudeignore
+.mcp.json
