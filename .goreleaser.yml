@@ -46,9 +46,9 @@ homebrew_casks:
     # Strip the quarantine xattr so the unsigned binary runs without Gatekeeper prompts.
     hooks:
       post:
-        install: |
-          if OS.mac?
-            system_command "/usr/bin/xattr", args: ["-dr", "com.apple.quarantine", "#{staged_path}/pgbackup"]
+        install_steps: |
+          on_macos do
+            run "/usr/bin/xattr", args: ["-dr", "com.apple.quarantine", "{{ .StagedPath }}/pgbackup"]
           end
 
 archives:
@@ -71,16 +71,10 @@ archives:
       - pg_backup.example.yaml
 
 release:
-  header: |
-    ## pgbackup {{ .Version }}
-
-    Single-binary PostgreSQL rotating-backup tool. Drop the binary on the host,
-    add a YAML config and a cron entry. See the README for setup and restore.
-
-    ### Binaries
-    - Linux: `pgbackup-linux-amd64`, `pgbackup-linux-arm64`, `pgbackup-linux-arm`
-    - macOS: `pgbackup-darwin-amd64`, `pgbackup-darwin-arm64` (Apple Silicon)
-    - Windows: `pgbackup-windows-amd64.exe`
+  # release-please creates the GitHub release (and tag) with the changelog as
+  # its body; GoReleaser only uploads the artifacts to it and leaves the
+  # name/body untouched.
+  mode: keep-existing
 
 checksum:
   name_template: "checksums.txt"
@@ -88,12 +82,6 @@ checksum:
 snapshot:
   version_template: "{{ incpatch .Version }}-next"
 
+# Release notes come from release-please (CHANGELOG.md).
 changelog:
-  sort: asc
-  filters:
-    exclude:
-      - "^docs:"
-      - "^test:"
-      - "^ci:"
-      - Merge pull request
-      - Merge branch
+  disable: true
